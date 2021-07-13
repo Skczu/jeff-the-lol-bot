@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Skczu",
   "license": "GPL-3.0-or-later",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "discord.js": "^12.5.3",
     "dotenv": "^8.6.0",
