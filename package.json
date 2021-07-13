@@ -1,0 +1,16 @@
+{
+  "name": "jeff-the-lol-bot",
+  "version": "1.0.0",
+  "description": "A Discord League of Legends bot",
+  "main": "index.js",
+  "author": "Skczu",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^8.6.0",
+    "mongoose": "^5.13.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0"
+  }
+}
