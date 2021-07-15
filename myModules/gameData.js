@@ -19,10 +19,11 @@ module.exports = async (client, Discord, userData) => {
     const url = `https://${userData.region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${playerID}?api_key=${process.env.RIOT_TOKEN}`;
     return await fetchData(url)
       .then(data => {
+        data = data.find(mode => mode.queueType === "RANKED_SOLO_5x5");
         if (data.tier == "undefined") {
           return "UNRANKED";
         }
-        return (data[0].tier + " " + data[0].rank);
+        return (data.tier + " " + data.rank);
       })
       .catch((err) => { throw err });
   }
@@ -75,7 +76,7 @@ module.exports = async (client, Discord, userData) => {
     const embed = new Discord.MessageEmbed()
       .setColor('#0099ff')
       .setAuthor('LEAGUE OF LEGENDS')
-      .setTitle(userData.sumName)
+      .setTitle(userData.sumName + " - Solo Queue")
       .setThumbnail('https://i.imgur.com/vgERB5I.png')
       .addFields(
         { name: 'Your team', value: team100 },
