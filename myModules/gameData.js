@@ -19,11 +19,12 @@ module.exports = async (client, Discord, userData) => {
     const url = `https://${userData.region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${playerID}?api_key=${process.env.RIOT_TOKEN}`;
     return await fetchData(url)
       .then(data => {
-        data = data.find(mode => mode.queueType === "RANKED_SOLO_5x5");
-        if (data.tier == "undefined") {
+        const soloq = data.find(mode => mode.queueType === "RANKED_SOLO_5x5");
+        if (soloq.tier === "undefined") {
           return "UNRANKED";
         }
-        return (data.tier + " " + data.rank);
+        wr = (soloq.wins / (soloq.wins + soloq.losses));
+        return (soloq.tier + " " + soloq.rank + " " + wr + "% WR");
       })
       .catch((err) => { throw err });
   }
@@ -58,7 +59,7 @@ module.exports = async (client, Discord, userData) => {
     const teamToEntries = (i) => {
       return Object.entries(teams[i])
       .reduce((acc, currVal) => `${acc}${
-        currVal[0] + " = " + currVal[1]}\n`,
+        currVal[0] + " - " + currVal[1]}\n`,
       "")
       .trim();
     };
