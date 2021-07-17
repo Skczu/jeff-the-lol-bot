@@ -23,7 +23,8 @@ module.exports = async (client, Discord, userData) => {
         if (soloq.tier === "undefined") {
           return "UNRANKED";
         }
-        wr = (soloq.wins / (soloq.wins + soloq.losses));
+        let wr = (soloq.wins / (soloq.wins + soloq.losses)) * 100;
+        wr = Math.round((wr + Number.EPSILON) * 10) / 10;
         return (soloq.tier + " " + soloq.rank + " " + wr + "% WR");
       })
       .catch((err) => { throw err });
